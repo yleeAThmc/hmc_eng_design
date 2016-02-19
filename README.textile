@@ -1,5 +1,6 @@
-<h1> Harvey Mudd College Engineering Design Research </h1>
-<h2> Advisor: Professor Gordon Krauss </h2>
-<h3> Student Researchers: Kelly Lee, Porter Adams </h3>
+<h1> Harvey Mudd College</h1>
+<h2>Engineering Design Research </h2>
+<h3> Advisor: Professor Gordon Krauss </h3>
+<h4> Student Researchers: Kelly Lee, Porter Adams </h4>
 
 This web app aims to provide an easy way of distributing surveys. It may be used outside of educational settings in the future.
