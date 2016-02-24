@@ -6,5 +6,7 @@
 	<%= render '/questions/response_field', f: response %>
 <% end %>
 
-<%= link_to 'Edit', edit_survey_path(@survey) %> |
-<%= link_to 'Back', surveys_path %>
+<% if current_user.id == @survey.assigner_id %>
+	<%= link_to 'Edit', edit_survey_path(@survey) %> |
+<%end%>
+	<%= link_to 'Back', surveys_path %>

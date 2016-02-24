@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20160217145643) do
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
 
   create_table "questions", force: :cascade do |t|
-    t.integer  "type"
+    t.integer  "qtype"
     t.text     "content"
     t.integer  "survey_id"
     t.datetime "created_at", null: false

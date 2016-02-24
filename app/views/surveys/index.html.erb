@@ -9,8 +9,10 @@
 
       	  <h3><%= link_to survey.title, survey %></h3>
       	  <h4>Created by <%=survey.assigner.name%></h4>
-          <%= link_to 'Edit', edit_survey_path(survey) %>
-          <%= link_to 'Delete', survey, method: :delete, data: { confirm: 'Are you sure?' } %>
+      	  <% if current_user.id == survey.assigner_id %>
+	          <%= link_to 'Edit', edit_survey_path(survey) %>
+	          <%= link_to 'Delete', survey, method: :delete, data: { confirm: 'Are you sure?' } %>
+	      <%end%>
 
       </div>
     <% end %>
