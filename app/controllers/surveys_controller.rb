@@ -72,7 +72,7 @@ class SurveysController < ApplicationController
     def survey_params
       params[:survey]
       .permit(:title, :description, :assigner,
-        :questions_attributes => [:id, :type, :content]
-        )
+              tasks_attributes: [:id, :type, :content, :_destroy]
+      )
     end
 end
