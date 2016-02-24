@@ -1,5 +1,10 @@
 <p id="notice"><%= notice %></p>
 <h1><%=@survey.title%></h1>
 <p><%=@survey.description%></p>
+
+<% @survey.questions.each do |question| %>
+	<%= render '/questions/response_field', f: response %>
+<% end %>
+
 <%= link_to 'Edit', edit_survey_path(@survey) %> |
 <%= link_to 'Back', surveys_path %>

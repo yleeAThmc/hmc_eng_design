@@ -15,6 +15,7 @@ class SurveysController < ApplicationController
   # GET /surveys/new
   def new
     @survey = Survey.new
+    @survey.questions.build
   end
 
   # GET /surveys/1/edit
@@ -72,7 +73,7 @@ class SurveysController < ApplicationController
     def survey_params
       params[:survey]
       .permit(:title, :description, :assigner,
-              tasks_attributes: [:id, :type, :content, :_destroy]
+              questions_attributes: [:id, :type, :content, :_destroy]
       )
     end
 end
