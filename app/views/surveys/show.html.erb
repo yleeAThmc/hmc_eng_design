@@ -3,7 +3,15 @@
 <p><%=@survey.description%></p>
 
 <% @survey.questions.each do |question| %>
-	<%= render '/questions/response_field', f: response %>
+	<%=question.content%>
+	<div id="responses">
+		<%= f.fields_for :responses do |response| %>
+			<%= render '/questions/response_field', f: response %>
+		<%end%>
+		<div class="links">
+		  <%= link_to_add_association 'add question', f, :questions %>
+		</div>
+	</div>
 <% end %>
 
 <% if current_user.id == @survey.assigner_id %>
