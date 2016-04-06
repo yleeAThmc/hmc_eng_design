@@ -1,5 +1,5 @@
 class SurveysController < ApplicationController
-  before_action :set_survey, only: [:show, :edit, :update, :destroy]
+  before_action :set_survey, only: [:show, :edit, :update, :destroy, :save_all_responses]
 
   # GET /surveys
   # GET /surveys.json
@@ -26,8 +26,9 @@ class SurveysController < ApplicationController
   # POST /surveys.json
   def create
     @survey = Survey.new(survey_params)
+    byebug
     @survey.assigner = current_user
-    
+    byebug
     respond_to do |format|
       if @survey.save
         format.html { redirect_to @survey, notice: 'Survey was successfully created.' }
@@ -61,6 +62,22 @@ class SurveysController < ApplicationController
       format.html { redirect_to surveys_url, notice: 'Survey was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def save_all_responses
+    respond_to do |format|
+      if @survey.update(survey_params)
+        byebug
+      end
+    end
+    @survey.questions.each do |question|
+      puts question
+      byebug
+      responses = X.new(question.responses).update_response(current_user.id)
+      byebug
+    end
+
+    redirect_to :root
   end
 
   private

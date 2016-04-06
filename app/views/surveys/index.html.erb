@@ -1,23 +1,32 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Surveys</h1>
+<% if !current_user.user? %>
+  <div class="small-button right-align"><%= link_to 'New Survey', new_survey_path %></div>
+<%end%>
+<br>
+<h3 class="center-justified">Seek Feedback</h3>
+	<% @surveys.each do |survey| %>
+		<% if current_user.id == survey.assigner_id %>
+			<div class="survey-index">
+		      	<h4><%= link_to survey.title, survey %> (View responses)</h4>
+	            <%= link_to 'Edit', edit_survey_path(survey) %>
+	          	<%= link_to 'Delete', survey, method: :delete, data: { confirm: 'Are you sure?' } %>
+	      	
+	    	</div>
+	    <%end%>
+	<%end%>
 
-
-
+<h3 class="center-justified">Provide Feedback</h3>
     <% @surveys.each do |survey| %>
-      <div class="survey-index">
-
-      	  <h3><%= link_to survey.title, survey %></h3>
-      	  <h4>Created by <%=survey.assigner.name%></h4>
-      	  <% if current_user.id == survey.assigner_id %>
-	          <%= link_to 'Edit', edit_survey_path(survey) %>
-	          <%= link_to 'Delete', survey, method: :delete, data: { confirm: 'Are you sure?' } %>
-	      <%end%>
-
-      </div>
+    	<% if current_user.id != survey.assigner_id %>
+	    	<div class="survey-index">
+	      		<h4><%= link_to survey.title, survey %></h4>
+	      		<h5>Created by <%=survey.assigner.name%></h5>
+	      	</div>
+	    <%end%>
     <% end %>
 
+<h3 class="center-justified">Expired Survey</h3>
+
 <br>
-<% if !current_user.user? %>
-  <%= link_to 'New Survey', new_survey_path %>
-<%end%>
+
