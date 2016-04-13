@@ -2,8 +2,35 @@
 <h1><%=@survey.title%></h1>
 <p><%=@survey.description%></p>
 
+<% Response.where(survey_id: @survey.id).group_by(&:question_id).each do |qid, r_array| %>
+	<%= qid %>
+	<%= r_array.first.question %>
+	<br>
+	<% r_array.each do |r| %>	
+		<%= r.content %>
+		<br>
+	<%end%>
+	<br><br>	
+<%end%>
+
+
+
+<br>
+<div>HAHA!!!</div>
+<br>
+
+
 <% @survey.take_surveys.each do |ts| %>
+	<%= ts.user %><br>
+	<%= ts.user_id %>
+	<% ts.responses.group_by(&:question_id).each do |qid, r|%>
+	    <%= qid %>
+	    <%= r %>
+	<%end%>
+	<br>
+	<br>
 	<% ts.responses.each do |r| %>
+		<%= r.user_id %>
 		<%= r.question %>
 		<br>
 		<%= r.content %>

@@ -10,7 +10,7 @@ class TakeSurveysController < ApplicationController
   # POST /surveys.json
   def create
     @takeSurvey = TakeSurvey.new(take_survey_params)
-    @takeSurvey.user = current_user
+    @takeSurvey.user_id = current_user.id
     respond_to do |format|
       if @takeSurvey.save
         format.html { redirect_to surveys_path, notice: 'Survey was successfully submitted.' }

@@ -13,14 +13,16 @@
 	    <%= f.fields_for :responses do |response| %>
 	    	<div class="nested-fields">
   				<div class="field">
-
-			      <%= response.hidden_field :question_id, :value => question.id %>
-			      <%= response.text_field :content %> 
+			        <%= response.hidden_field :survey_id, :value => @survey.id %>
+			        <%= response.hidden_field :question_id, :value => question.id %>
+				    <%= response.hidden_field :user_id, :value => current_user.id %>
+			        <%= response.text_field :content %> 
 		        </div>
 			</div>
 	    <% end %> 
 	    <div class="links">
-            <%= link_to_add_association 'add response', f, :responses, :render_options => {:locals => {:question => question.id }} %>
+            <%= link_to_add_association 'add response', f, :responses, :render_options => {
+            	:locals => {:question => question.id, :survey => @survey.id }} %>
         </div>
   	
   	<%end%>

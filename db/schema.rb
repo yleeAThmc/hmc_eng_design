@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20160406140143) do
     t.integer  "survey_id"
     t.integer  "take_survey_id"
     t.integer  "question_id"
+    t.integer  "user_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
@@ -48,6 +49,7 @@ ActiveRecord::Schema.define(version: 20160406140143) do
   add_index "responses", ["question_id"], name: "index_responses_on_question_id"
   add_index "responses", ["survey_id"], name: "index_responses_on_survey_id"
   add_index "responses", ["take_survey_id"], name: "index_responses_on_take_survey_id"
+  add_index "responses", ["user_id"], name: "index_responses_on_user_id"
 
   create_table "surveys", force: :cascade do |t|
     t.string   "title"

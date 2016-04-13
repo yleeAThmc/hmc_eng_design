@@ -5,7 +5,7 @@ class CreateResponses < ActiveRecord::Migration
       t.references :survey, index: true, foreign_key: true
       t.references :take_survey, index: true, foreign_key: true
       t.references :question, index: true, foreign_key: true
-      #t.references :user, index: true, foreign_key: true
+      t.references :user, index: true, foreign_key: true
 
       t.timestamps null: false
     end
