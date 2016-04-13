@@ -2,29 +2,18 @@
 <h1><%=@survey.title%></h1>
 <p><%=@survey.description%></p>
 
-<%= form_for @survey do |d| %>
-	<% @survey.questions.each do |question| %>
-		<%= form_for question do |f| %>
-			<%=question.content%>
-			
-			<div id="responses">
-				<%= f.fields_for :responses do |response| %>
-					<%= render 'response_fields', f: response %>
-				<%end%>
-				<div class="links">
-				  <%= link_to_add_association 'add response', f, :responses %>
-				</div>
-			</div>
-			
-		<%end%>
-	<% end %>
-	
-	<% if current_user.id != @survey.assigner_id %>
-		<%= link_to "Save response", save_all_responses_survey_path %>
+<% @survey.take_surveys.each do |ts| %>
+	<% ts.responses.each do |r| %>
+		<%= r.question %>
+		<br>
+		<%= r.content %>
+		<br>
+		<br>
 	<%end%>
-<%end%>
+<% end %>
+	
 <% if current_user.id == @survey.assigner_id %>
-	<%= link_to 'Edit', edit_survey_path(@survey) %> |
+	<%= link_to 'Edit', edit_survey_path(@survey) %>
 <%end%>
 	<%= link_to 'Back', surveys_path %>
 

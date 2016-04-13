@@ -32,7 +32,7 @@ class SurveysController < ApplicationController
     @survey.assigner = current_user
     respond_to do |format|
       if @survey.save
-        format.html { redirect_to @survey, notice: 'Survey was successfully created.' }
+        format.html { redirect_to action: "index", notice: 'Survey was successfully created.' }
         format.json { render :show, status: :created, location: @survey }
       else
         format.html { render :new }

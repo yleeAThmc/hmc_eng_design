@@ -15,17 +15,6 @@
       <%= render 'question_fields', f: question %>
     <% end %>
     
-    
-    
-    <br><br>
-    <%= f.fields_for :questions do |question| %>
-      <%= question.label :question %>
-      <%= question.hidden_field :content, :value => "I'm hidden!" %>
-    <% end %>
-    
-    
-    
-    
     <div class="links">
       <%= link_to_add_association 'add question', f, :questions %>
     </div>

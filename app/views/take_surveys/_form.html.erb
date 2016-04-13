@@ -3,30 +3,28 @@
     <%= @survey.title %>
     <br/>
     <%= @survey.description %>
+    <%= f.hidden_field :survey_id, :value => @survey.id %>
   </div>
 
   <h3>Questions</h3>
   <div id="questions">
     <% @survey.questions.each do |question| %>
-    1q
+        <%= question.content %>
 	    <%= f.fields_for :responses do |response| %>
-	    1r
 	    	<div class="nested-fields">
   				<div class="field">
 
-			      <%= response.label :response %>
 			      <%= response.hidden_field :question_id, :value => question.id %>
 			      <%= response.text_field :content %> 
 		        </div>
 			</div>
 	    <% end %> 
+	    <div class="links">
+            <%= link_to_add_association 'add response', f, :responses, :render_options => {:locals => {:question => question.id }} %>
+        </div>
   	
   	<%end%>
-
-    
-    <div class="links">
-      <%#= link_to_add_association 'add question', f, :questions %>
-    </div>
   </div>
+  
   <%= f.submit %>
 <% end %>

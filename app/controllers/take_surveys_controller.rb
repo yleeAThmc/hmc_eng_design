@@ -9,17 +9,25 @@ class TakeSurveysController < ApplicationController
   # POST /surveys
   # POST /surveys.json
   def create
-    @survey = TakeSurvey.new(survey_params)
-    @survey.assigner = current_user
+    @takeSurvey = TakeSurvey.new(take_survey_params)
+    @takeSurvey.user = current_user
     respond_to do |format|
-      if @survey.save
-        format.html { redirect_to @survey, notice: 'Survey was successfully created.' }
-        format.json { render :show, status: :created, location: @survey }
+      if @takeSurvey.save
+        format.html { redirect_to surveys_path, notice: 'Survey was successfully submitted.' }
+        format.json { render :show, status: :created, location: survey }
       else
         format.html { render :new }
-        format.json { render json: @survey.errors, status: :unprocessable_entity }
+        format.json { render json: @takeSurvey.errors, status: :unprocessable_entity }
       end
     end
   end
-      
+  
+  private
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def take_survey_params
+      params[:take_survey]
+      .permit(:survey_id, :user_id,
+              responses_attributes: [:content, :survey_id, :question_id, :user_id, :_destroy]
+      )
+    end
 end
