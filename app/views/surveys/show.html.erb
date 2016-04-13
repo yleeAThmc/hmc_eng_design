@@ -20,7 +20,7 @@
 	<% end %>
 	
 	<% if current_user.id != @survey.assigner_id %>
-		<%= link_to "Save response", save_all_responses_survey_path, d %>
+		<%= link_to "Save response", save_all_responses_survey_path %>
 	<%end%>
 <%end%>
 <% if current_user.id == @survey.assigner_id %>

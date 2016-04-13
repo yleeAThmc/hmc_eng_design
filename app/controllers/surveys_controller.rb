@@ -1,5 +1,5 @@
 class SurveysController < ApplicationController
-  before_action :set_survey, only: [:show, :edit, :update, :destroy, :save_all_responses]
+  before_action :set_survey, only: [:show, :edit, :update, :destroy]
 
   # GET /surveys
   # GET /surveys.json
@@ -10,6 +10,9 @@ class SurveysController < ApplicationController
   # GET /surveys/1
   # GET /surveys/1.json
   def show
+    if @survey.assigner != current_user
+      redirect_to new_take_survey_path(:survey_id => @survey.id)
+    end
   end
 
   # GET /surveys/new
@@ -26,9 +29,7 @@ class SurveysController < ApplicationController
   # POST /surveys.json
   def create
     @survey = Survey.new(survey_params)
-    byebug
     @survey.assigner = current_user
-    byebug
     respond_to do |format|
       if @survey.save
         format.html { redirect_to @survey, notice: 'Survey was successfully created.' }
@@ -65,16 +66,9 @@ class SurveysController < ApplicationController
   end
 
   def save_all_responses
-    respond_to do |format|
-      if @survey.update(survey_params)
-        byebug
-      end
-    end
     @survey.questions.each do |question|
       puts question
-      byebug
       responses = X.new(question.responses).update_response(current_user.id)
-      byebug
     end
 
     redirect_to :root

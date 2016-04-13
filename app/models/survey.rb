@@ -4,7 +4,4 @@ class Survey < ActiveRecord::Base
 
   has_many :questions
   accepts_nested_attributes_for :questions, reject_if: :all_blank, allow_destroy: true
-  
-  has_many :responses
-  accepts_nested_attributes_for :responses, reject_if: :all_blank, allow_destroy: true
 end

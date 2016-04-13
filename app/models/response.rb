@@ -1,5 +1,5 @@
 class Response < ActiveRecord::Base
-  belongs_to :question
+  belongs_to :take_survey
   belongs_to :user
  
 end
