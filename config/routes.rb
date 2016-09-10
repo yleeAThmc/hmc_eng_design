@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
-  resources :surveys do
-    get 'save_all_responses', on: :member
-  end
+  resources :surveys
   #get 'survey' => 'survey#index', :as => :survey
   root to: 'visitors#index'
+  #root to: 'surveys#index'
   devise_for :users
   resources :users
   resources :questions

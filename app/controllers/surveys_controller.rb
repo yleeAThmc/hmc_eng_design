@@ -64,15 +64,7 @@ class SurveysController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-  def save_all_responses
-    @survey.questions.each do |question|
-      puts question
-      responses = X.new(question.responses).update_response(current_user.id)
-    end
-
-    redirect_to :root
-  end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.
