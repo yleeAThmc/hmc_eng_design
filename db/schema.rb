@@ -11,7 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160217145643) do
+ActiveRecord::Schema.define(version: 20160910232056) do
+
+  create_table "evaluate_surveys", force: :cascade do |t|
+    t.integer  "survey_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "evaluate_surveys", ["survey_id"], name: "index_evaluate_surveys_on_survey_id"
+  add_index "evaluate_surveys", ["user_id"], name: "index_evaluate_surveys_on_user_id"
+
+  create_table "evaluations", force: :cascade do |t|
+    t.integer  "evaluate_survey_id"
+    t.integer  "response_id"
+    t.integer  "quality"
+    t.integer  "tone"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "evaluations", ["evaluate_survey_id"], name: "index_evaluations_on_evaluate_survey_id"
+  add_index "evaluations", ["response_id"], name: "index_evaluations_on_response_id"
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -27,7 +49,7 @@ ActiveRecord::Schema.define(version: 20160217145643) do
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
 
   create_table "questions", force: :cascade do |t|
-    t.integer  "type"
+    t.integer  "qtype"
     t.text     "content"
     t.integer  "survey_id"
     t.datetime "created_at", null: false
@@ -35,6 +57,21 @@ ActiveRecord::Schema.define(version: 20160217145643) do
   end
 
   add_index "questions", ["survey_id"], name: "index_questions_on_survey_id"
+
+  create_table "responses", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "survey_id"
+    t.integer  "take_survey_id"
+    t.integer  "question_id"
+    t.integer  "user_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "responses", ["question_id"], name: "index_responses_on_question_id"
+  add_index "responses", ["survey_id"], name: "index_responses_on_survey_id"
+  add_index "responses", ["take_survey_id"], name: "index_responses_on_take_survey_id"
+  add_index "responses", ["user_id"], name: "index_responses_on_user_id"
 
   create_table "surveys", force: :cascade do |t|
     t.string   "title"
@@ -53,6 +90,16 @@ ActiveRecord::Schema.define(version: 20160217145643) do
 
   add_index "surveys_and_assignees", ["assignee_id"], name: "index_surveys_and_assignees_on_assignee_id"
   add_index "surveys_and_assignees", ["survey_id"], name: "index_surveys_and_assignees_on_survey_id"
+
+  create_table "take_surveys", force: :cascade do |t|
+    t.integer  "survey_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "take_surveys", ["survey_id"], name: "index_take_surveys_on_survey_id"
+  add_index "take_surveys", ["user_id"], name: "index_take_surveys_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

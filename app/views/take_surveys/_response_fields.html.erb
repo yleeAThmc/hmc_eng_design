@@ -1,0 +1,10 @@
+<div class="nested-fields">
+  <div class="field">
+    <%= f.text_field :content %>
+	<%= f.hidden_field :survey_id, :value => survey %>
+	<%= f.hidden_field :question_id, :value => question %>
+	<%= f.hidden_field :user_id, :value => current_user.id %>
+	
+  </div>
+  <%= link_to_remove_association "remove question", f %>
+</div>

@@ -10,11 +10,17 @@ class SurveysController < ApplicationController
   # GET /surveys/1
   # GET /surveys/1.json
   def show
+    if @survey.assigner != current_user
+      redirect_to new_take_survey_path(:survey_id => @survey.id)
+    else
+      redirect_to new_evaluate_survey_path(:survey_id => @survey.id)
+    end
   end
 
   # GET /surveys/new
   def new
     @survey = Survey.new
+    @survey.questions.build
   end
 
   # GET /surveys/1/edit
@@ -26,10 +32,9 @@ class SurveysController < ApplicationController
   def create
     @survey = Survey.new(survey_params)
     @survey.assigner = current_user
-    
     respond_to do |format|
       if @survey.save
-        format.html { redirect_to @survey, notice: 'Survey was successfully created.' }
+        format.html { redirect_to action: "index" } #, notice: 'Survey was successfully created.' }
         format.json { render :show, status: :created, location: @survey }
       else
         format.html { render :new }
@@ -61,6 +66,7 @@ class SurveysController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -72,7 +78,7 @@ class SurveysController < ApplicationController
     def survey_params
       params[:survey]
       .permit(:title, :description, :assigner,
-        :questions_attributes => [:id, :type, :content]
-        )
+              questions_attributes: [:id, :type, :content, :_destroy]
+      )
     end
 end
