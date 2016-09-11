@@ -3,7 +3,7 @@ class Response < ActiveRecord::Base
   belongs_to :take_survey
   belongs_to :response
   belongs_to :user
-  has_one :evaluation
+  has_many :evaluations
   
   def question
     question_content = ""

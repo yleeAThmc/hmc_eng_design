@@ -12,6 +12,8 @@ class SurveysController < ApplicationController
   def show
     if @survey.assigner != current_user
       redirect_to new_take_survey_path(:survey_id => @survey.id)
+    else
+      redirect_to new_evaluate_survey_path(:survey_id => @survey.id)
     end
   end
 
@@ -32,7 +34,7 @@ class SurveysController < ApplicationController
     @survey.assigner = current_user
     respond_to do |format|
       if @survey.save
-        format.html { redirect_to action: "index", notice: 'Survey was successfully created.' }
+        format.html { redirect_to action: "index" } #, notice: 'Survey was successfully created.' }
         format.json { render :show, status: :created, location: @survey }
       else
         format.html { render :new }
