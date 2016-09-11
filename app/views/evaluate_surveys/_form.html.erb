@@ -1,0 +1,18 @@
+<%= form_for @evaluateSurvey do |f| %>
+  <div class="field">
+    <%= @survey.title %>
+    <br/>
+    <%= @survey.description %>
+    <%= f.hidden_field :survey_id, :value => @survey.id %>
+  </div>
+
+  <h3>Questions</h3>
+  <div id="questions">
+    <% @survey.questions.each do |question| %>
+    serious?
+
+  	<%end%>
+  </div>
+  
+  <%= f.submit %>
+<% end %>
